@@ -7,9 +7,9 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/url"
-	"strings"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type Collection struct {
