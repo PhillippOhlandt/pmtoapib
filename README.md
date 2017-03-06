@@ -36,3 +36,11 @@ pmtoapib collection.json docs users
 ```
 
 This will generate a `users.apib` file.
+
+## Usage with Docker
+
+You can also use the Docker image if you don't use Mac OS and don't want to compile it on your own.
+
+```
+docker run --rm -it -v "$PWD:/opt" phillippohlandt/pmtoapib collection.json docs
+```
