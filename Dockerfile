@@ -1,4 +1,4 @@
-FROM golang:1.7.5
+FROM golang:1.7.5-alpine
 
 MAINTAINER 	Phillipp Ohlandt <phillipp.ohlandt@googlemail.com>
 
