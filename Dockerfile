@@ -1,9 +1,16 @@
-FROM alpine:3.5
+FROM golang:1.7.5
 
 MAINTAINER 	Phillipp Ohlandt <phillipp.ohlandt@googlemail.com>
 
-COPY pmtoapib-linux /usr/local/bin/pmtoapib
-RUN chmod +x /usr/local/bin/pmtoapib
+RUN mkdir /app
+
+WORKDIR /app
+
+COPY . /app
+
+RUN go build -o pmtoapib . && \
+    mv /app/pmtoapib /usr/local/bin/pmtoapib && \
+    chmod +x /usr/local/bin/pmtoapib
 
 WORKDIR /opt
 
