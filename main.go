@@ -68,8 +68,8 @@ func (r CollectionItemRequest) ResponseBodyIncludeString() template.HTML {
 	return template.HTML(fmt.Sprintf("<!-- include(%v) -->", r.ResponseBodyIncludePath()))
 }
 
-func (r CollectionItemRequest) IsHidden() bool {
-	return strings.Contains(r.Description, "pmtoapib_hide")
+func (r CollectionItemRequest) IsExcluded() bool {
+	return strings.Contains(r.Description, "pmtoapib_exclude")
 }
 
 type RequestHeader struct {
@@ -94,7 +94,7 @@ func getApibFileContent(c Collection) string {
 
 {{ .Info.Description }}
 
-{{ range .Items }} {{ if not .Request.IsHidden }}
+{{ range .Items }} {{ if not .Request.IsExcluded }}
 ## {{ .Name }} [{{ .Request.ShortUrl }}{{ if .Request.UrlParameterListString }}{?{{ .Request.UrlParameterListString }}}{{ end }}]
 
 ### {{ if .Request.Description }}{{ .Request.Description }}{{ else }}DESCRIPTION{{ end }} [{{ .Request.Method }}]
@@ -143,7 +143,7 @@ func getResponseFiles(c Collection) []string {
 	var files []string
 
 	for _, item := range c.Items {
-		if !item.Request.IsHidden() {
+		if !item.Request.IsExcluded() {
 			files = append(files, item.Request.ResponseBodyIncludePath())
 		}
 	}
