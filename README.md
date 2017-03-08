@@ -44,3 +44,10 @@ You can also use the Docker image if you don't use Mac OS and don't want to comp
 ```
 docker run --rm -it -v "$PWD:/opt" phillippohlandt/pmtoapib collection.json docs
 ```
+
+## Options
+
+### Exclude Requests
+
+To exclude a whole request from the generated `.apib` file, simply put the string `pmtoapib_exclude` 
+in the request description. It will also prevent the generation of the response files for that request.
