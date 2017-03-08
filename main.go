@@ -85,7 +85,12 @@ type RequestBody struct {
 }
 
 func (b RequestBody) RawString() template.HTML {
-	return template.HTML(b.Raw)
+	var out bytes.Buffer
+	err := json.Indent(&out, []byte(b.Raw), "\t\t\t", "\t\t\t")
+	if err != nil {
+		return template.HTML(b.Raw)
+	}
+	return template.HTML(out.String())
 }
 
 func getApibFileContent(c Collection) string {
@@ -109,7 +114,7 @@ func getApibFileContent(c Collection) string {
             {{ range .Request.Header }}{{ if not .Disabled }}
             {{ .Key }}: {{ .Value }}{{ end }}{{ end }}
     {{ if .Request.Body.Raw }}
-    + Request (application/json)
+    + Body
 
     	    {{ .Request.Body.RawString }}
     {{ end }}
