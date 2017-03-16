@@ -102,7 +102,9 @@ func getApibFileContent(c Collection) string {
 {{ range .Items }} {{ if not .Request.IsExcluded }}
 ## {{ .Name }} [{{ .Request.ShortUrl }}{{ if .Request.UrlParameterListString }}{?{{ .Request.UrlParameterListString }}}{{ end }}]
 
-### {{ if .Request.Description }}{{ .Request.Description }}{{ else }}DESCRIPTION{{ end }} [{{ .Request.Method }}]
+### {{ .Name }} [{{ .Request.Method }}]
+
+{{ if .Request.Description }}{{ .Request.Description }}{{ else }}DESCRIPTION{{ end }}
 {{ if .Request.UrlParameterList }}
 + Parameters
 
