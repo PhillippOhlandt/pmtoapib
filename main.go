@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -11,6 +12,24 @@ import (
 	"path/filepath"
 	"strings"
 )
+
+type Config struct {
+	CollectionPath string
+	DestinationPath string
+	ApibFileName string
+}
+
+func (c *Config) Init() {
+	flag.StringVar(&c.CollectionPath, "collection", "", "Path to the Postman collection export")
+	flag.StringVar(&c.CollectionPath, "c", "", "Path to the Postman collection export")
+
+	flag.StringVar(&c.DestinationPath, "destination", "./", "Destination folder path for the generated files")
+	flag.StringVar(&c.DestinationPath, "d", "./", "Destination folder path for the generated files")
+
+	flag.StringVar(&c.ApibFileName, "apibname", "", "Set a custom name for the generated .apib file")
+
+	flag.Parse()
+}
 
 type Collection struct {
 	Info  CollectionInfo   `json:"info"`
@@ -170,37 +189,29 @@ func writeToFile(path string, content string) {
 
 func main() {
 
-	var collectionPath string
-	outputPath := "./"
+	config := Config{}
+	config.Init()
 
-	if len(os.Args) > 1 {
-		collectionPath = os.Args[1]
-	}
-
-	if len(os.Args) > 2 {
-		outputPath = os.Args[2]
-	}
-
-	if collectionPath == "" {
+	if config.CollectionPath == "" {
 		fmt.Println("No collection file defined!")
 		return
 	}
 
-	file, _ := ioutil.ReadFile(collectionPath)
+	file, _ := ioutil.ReadFile(config.CollectionPath)
 	var c Collection
 	json.Unmarshal(file, &c)
 
 	apibFileName := strings.Replace(c.Info.Name, " ", "-", -1)
 
-	if len(os.Args) > 3 {
-		apibFileName = os.Args[3]
+	if config.ApibFileName != "" {
+		apibFileName = config.ApibFileName
 	}
 
 	apibFile := getApibFileContent(c)
 
-	writeToFile(fmt.Sprintf("%v/%v.apib", filepath.Clean(outputPath), apibFileName), apibFile)
+	writeToFile(fmt.Sprintf("%v/%v.apib", filepath.Clean(config.DestinationPath), apibFileName), apibFile)
 
 	for _, path := range getResponseFiles(c) {
-		writeToFile(fmt.Sprintf("%v/%v", filepath.Clean(outputPath), path), "{}")
+		writeToFile(fmt.Sprintf("%v/%v", filepath.Clean(config.DestinationPath), path), "{}")
 	}
 }
