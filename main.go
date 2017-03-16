@@ -11,6 +11,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sort"
 )
 
 type Config struct {
@@ -69,6 +70,8 @@ func (r CollectionItemRequest) UrlParameterList() []string {
 	for key, _ := range m {
 		parameters = append(parameters, key)
 	}
+
+	sort.Strings(parameters)
 
 	return parameters
 }
