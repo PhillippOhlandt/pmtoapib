@@ -1,0 +1,96 @@
+# Group pmtoapib example
+
+Example collection for pmtoapib
+
+ 
+## users [/users{?per_page,page}]
+
+### users [GET]
+
+Get a list of all users
+
++ Parameters
+
+    + per_page (string, required) - DESCRIPTION
+    + page (string, required) - DESCRIPTION
+    
++ Request
+
+    + Headers
+            
+            Authorization: Bearer {{access_token}}
+    
++ Response 200 (application/json)
+
+    + Headers
+
+            NAME: VALUE
+
+    + Body
+
+            <!-- include(responses/get-users.json) -->
+
+
+
+
+  
+## me [/me]
+
+### me [GET]
+
+Get information about the authenticated user
+
++ Request
+
+    + Headers
+            
+            Authorization: Bearer {{access_token}}
+    
++ Response 200 (application/json)
+
+    + Headers
+
+            NAME: VALUE
+
+    + Body
+
+            <!-- include(responses/get-me.json) -->
+
+
+
+
+ 
+## me edit [/me]
+
+### me edit [POST]
+
+Edit information about the authenticated user
+
++ Request
+
+    + Headers
+            
+            Authorization: Bearer {{access_token}}
+            Content-Type: application/json
+    
+    + Body
+
+    	    {
+				"name": "Phillipp",
+				"twitter_profile": "PhillippOh"
+			}
+    
++ Response 200 (application/json)
+
+    + Headers
+
+            NAME: VALUE
+
+    + Body
+
+            <!-- include(responses/post-me.json) -->
+
+
+
+
+

@@ -1,0 +1,87 @@
+{
+	"variables": [],
+	"info": {
+		"name": "pmtoapib example",
+		"_postman_id": "033c9102-7200-a8b1-1db3-66ad678edc43",
+		"description": "Example collection for pmtoapib",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"request": {
+				"url": "http://localhost/users?per_page=5&page=2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Get a list of all users"
+			},
+			"response": []
+		},
+		{
+			"name": "user",
+			"request": {
+				"url": "http://localhost/users/5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Get a specific user\n\npmtoapib_exclude"
+			},
+			"response": []
+		},
+		{
+			"name": "me",
+			"request": {
+				"url": "http://localhost/me",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "Get information about the authenticated user"
+			},
+			"response": []
+		},
+		{
+			"name": "me edit",
+			"request": {
+				"url": "http://localhost/me",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Phillipp\",\n\t\"twitter_profile\": \"PhillippOh\"\n}"
+				},
+				"description": "Edit information about the authenticated user"
+			},
+			"response": []
+		}
+	]
+}
