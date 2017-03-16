@@ -9,7 +9,7 @@ Notice: It uses the [Aglio](https://github.com/danielgtaylor/aglio) include synt
 Assuming that `collection.json` is your Postman collection export.
 
 ```
-pmtoapib collection.json docs
+pmtoapib -collection collection.json -destination docs
 ```
 
 The `docs` folder will be created with the following content
@@ -29,10 +29,10 @@ because those information are not available in the Postman export.
 The folders inside the `responses` folder line up with the request paths.
 
 By default, the collection name will be used as the `.apib` filename.
-It can be overridden with the third argument.
+It can be overridden with the `-apibname` parameter.
 
 ```
-pmtoapib collection.json docs users
+pmtoapib -collection collection.json -destination docs -apibname users
 ```
 
 This will generate a `users.apib` file.
@@ -42,7 +42,7 @@ This will generate a `users.apib` file.
 You can also use the Docker image if you don't use Mac OS and don't want to compile it on your own.
 
 ```
-docker run --rm -it -v "$PWD:/opt" phillippohlandt/pmtoapib collection.json docs
+docker run --rm -it -v "$PWD:/opt" phillippohlandt/pmtoapib -collection collection.json -destination docs
 ```
 
 ## Options
