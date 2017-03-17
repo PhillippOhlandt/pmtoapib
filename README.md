@@ -45,6 +45,17 @@ You can also use the Docker image if you don't use Mac OS and don't want to comp
 docker run --rm -it -v "$PWD:/opt" phillippohlandt/pmtoapib -collection collection.json -destination docs
 ```
 
+## Command Line Flags
+
+| Command | Short Version | Type | Default Value | Description |
+|---------|---------------|------|---------------|-------------|
+| -collection | -c | string | | Path to the Postman collection export |
+| -destination | -d | string | `./` | Destination folder path for the generated files |
+| -apibname | | string | | Set a custom name for the generated .apib file |
+| -force-apib | | boolean | `false` | Override existing .apib files |
+| -force-responses | | boolean | `false` | Override existing response files |
+
+
 ## Options
 
 ### Exclude Requests
