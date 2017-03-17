@@ -18,6 +18,8 @@ type Config struct {
 	CollectionPath string
 	DestinationPath string
 	ApibFileName string
+	ForceApibCreation bool
+	ForceResponsesCreation bool
 }
 
 func (c *Config) Init() {
@@ -28,6 +30,9 @@ func (c *Config) Init() {
 	flag.StringVar(&c.DestinationPath, "d", "./", "Destination folder path for the generated files")
 
 	flag.StringVar(&c.ApibFileName, "apibname", "", "Set a custom name for the generated .apib file")
+
+	flag.BoolVar(&c.ForceApibCreation, "force-apib", false, "Override existing .apib files")
+	flag.BoolVar(&c.ForceResponsesCreation, "force-responses", false, "Override existing response files")
 
 	flag.Parse()
 }
@@ -180,8 +185,8 @@ func getResponseFiles(c Collection) []string {
 	return files
 }
 
-func writeToFile(path string, content string) {
-	if _, err := os.Stat(path); os.IsNotExist(err) {
+func writeToFile(path string, content string, force bool) {
+	if _, err := os.Stat(path); os.IsNotExist(err) || force {
 		os.MkdirAll(filepath.Dir(path), os.ModePerm)
 		err := ioutil.WriteFile(path, []byte(content), 0644)
 		if err == nil {
@@ -212,9 +217,9 @@ func main() {
 
 	apibFile := getApibFileContent(c)
 
-	writeToFile(fmt.Sprintf("%v/%v.apib", filepath.Clean(config.DestinationPath), apibFileName), apibFile)
+	writeToFile(fmt.Sprintf("%v/%v.apib", filepath.Clean(config.DestinationPath), apibFileName), apibFile, config.ForceApibCreation)
 
 	for _, path := range getResponseFiles(c) {
-		writeToFile(fmt.Sprintf("%v/%v", filepath.Clean(config.DestinationPath), path), "{}")
+		writeToFile(fmt.Sprintf("%v/%v", filepath.Clean(config.DestinationPath), path), "{}", config.ForceResponsesCreation)
 	}
 }
