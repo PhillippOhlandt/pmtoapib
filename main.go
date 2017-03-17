@@ -10,8 +10,8 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-	"strings"
 	"sort"
+	"strings"
 )
 
 type Config struct {
