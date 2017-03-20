@@ -52,6 +52,54 @@ type CollectionItem struct {
 	Request CollectionItemRequest `json:"request"`
 }
 
+func (i CollectionItem) Markup() template.HTML {
+	tpl :=
+		`{{ if not .Request.IsExcluded }}
+## {{ .Name }} [{{ .Request.ShortUrl }}{{ if .Request.UrlParameterListString }}{?{{ .Request.UrlParameterListString }}}{{ end }}]
+
+### {{ .Name }} [{{ .Request.Method }}]
+
+{{ if .Request.Description }}{{ .Request.Description }}{{ else }}DESCRIPTION{{ end }}
+{{ if .Request.UrlParameterList }}
++ Parameters
+
+    {{ range .Request.UrlParameterList }}+ {{ . }} (string, required) - DESCRIPTION
+    {{ end }}{{ end }}
++ Request
+
+    + Headers
+            {{ range .Request.Header }}{{ if not .Disabled }}
+            {{ .Key }}: {{ .Value }}{{ end }}{{ end }}
+    {{ if .Request.Body.Raw }}
+    + Body
+
+    	    {{ .Request.Body.RawString }}
+    {{ end }}
++ Response 200 (application/json)
+
+    + Headers
+
+            NAME: VALUE
+
+    + Body
+
+            {{ .Request.ResponseBodyIncludeString }}
+
+
+
+
+{{ end }}`
+
+	t := template.New("Item Template")
+	t, _ = t.Parse(tpl)
+
+	var doc bytes.Buffer
+	t.Execute(&doc, i)
+	s := doc.String()
+
+	return template.HTML(s)
+}
+
 type CollectionItemRequest struct {
 	Url         string          `json:"url"`
 	Method      string          `json:"method"`
@@ -126,41 +174,7 @@ func getApibFileContent(c Collection) string {
 
 {{ .Info.Description }}
 
-{{ range .Items }}{{ if not .Request.IsExcluded }}
-## {{ .Name }} [{{ .Request.ShortUrl }}{{ if .Request.UrlParameterListString }}{?{{ .Request.UrlParameterListString }}}{{ end }}]
-
-### {{ .Name }} [{{ .Request.Method }}]
-
-{{ if .Request.Description }}{{ .Request.Description }}{{ else }}DESCRIPTION{{ end }}
-{{ if .Request.UrlParameterList }}
-+ Parameters
-
-    {{ range .Request.UrlParameterList }}+ {{ . }} (string, required) - DESCRIPTION
-    {{ end }}{{ end }}
-+ Request
-
-    + Headers
-            {{ range .Request.Header }}{{ if not .Disabled }}
-            {{ .Key }}: {{ .Value }}{{ end }}{{ end }}
-    {{ if .Request.Body.Raw }}
-    + Body
-
-    	    {{ .Request.Body.RawString }}
-    {{ end }}
-+ Response 200 (application/json)
-
-    + Headers
-
-            NAME: VALUE
-
-    + Body
-
-            {{ .Request.ResponseBodyIncludeString }}
-
-
-
-
-{{ end }}{{ end }}
+{{ range .Items }}{{ .Markup }}{{ end }}
 `
 
 	t := template.New("Template")
