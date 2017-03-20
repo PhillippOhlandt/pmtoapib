@@ -54,8 +54,7 @@ type CollectionItem struct {
 
 func (i CollectionItem) Markup() template.HTML {
 	tpl :=
-		`{{ if not .Request.IsExcluded }}
-## {{ .Name }} [{{ .Request.ShortUrl }}{{ if .Request.UrlParameterListString }}{?{{ .Request.UrlParameterListString }}}{{ end }}]
+`## {{ .Name }} [{{ .Request.ShortUrl }}{{ if .Request.UrlParameterListString }}{?{{ .Request.UrlParameterListString }}}{{ end }}]
 
 ### {{ .Name }} [{{ .Request.Method }}]
 
@@ -84,11 +83,7 @@ func (i CollectionItem) Markup() template.HTML {
     + Body
 
             {{ .Request.ResponseBodyIncludeString }}
-
-
-
-
-{{ end }}`
+`
 
 	t := template.New("Item Template")
 	t, _ = t.Parse(tpl)
@@ -174,7 +169,12 @@ func getApibFileContent(c Collection) string {
 
 {{ .Info.Description }}
 
-{{ range .Items }}{{ .Markup }}{{ end }}
+{{ range .Items }}{{ if not .Request.IsExcluded }}
+{{ .Markup }}
+
+
+
+{{ end }}{{ end }}
 `
 
 	t := template.New("Template")
