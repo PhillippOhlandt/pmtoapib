@@ -254,7 +254,7 @@ func main() {
 		}
 	}
 
-	if config.DumpRequest != ""{
+	if config.DumpRequest != "" {
 		for _, request := range c.Items {
 			if request.Name == config.DumpRequest {
 				fmt.Println(request.Markup())
