@@ -26,6 +26,5 @@ func TestStandardOutputIsCorrect(t *testing.T) {
 			}
 		}
 
-
 	}
 }

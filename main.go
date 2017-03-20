@@ -15,11 +15,12 @@ import (
 )
 
 type Config struct {
-	CollectionPath string
-	DestinationPath string
-	ApibFileName string
-	ForceApibCreation bool
+	CollectionPath         string
+	DestinationPath        string
+	ApibFileName           string
+	ForceApibCreation      bool
 	ForceResponsesCreation bool
+	DumpRequest            string
 }
 
 func (c *Config) Init() {
@@ -33,6 +34,8 @@ func (c *Config) Init() {
 
 	flag.BoolVar(&c.ForceApibCreation, "force-apib", false, "Override existing .apib files")
 	flag.BoolVar(&c.ForceResponsesCreation, "force-responses", false, "Override existing response files")
+
+	flag.StringVar(&c.DumpRequest, "dump-request", "", "Output the markup for a single request")
 
 	flag.Parse()
 }
@@ -54,7 +57,7 @@ type CollectionItem struct {
 
 func (i CollectionItem) Markup() template.HTML {
 	tpl :=
-`## {{ .Name }} [{{ .Request.ShortUrl }}{{ if .Request.UrlParameterListString }}{?{{ .Request.UrlParameterListString }}}{{ end }}]
+		`## {{ .Name }} [{{ .Request.ShortUrl }}{{ if .Request.UrlParameterListString }}{?{{ .Request.UrlParameterListString }}}{{ end }}]
 
 ### {{ .Name }} [{{ .Request.Method }}]
 
@@ -209,6 +212,10 @@ func writeToFile(path string, content string, force bool) {
 	}
 }
 
+func shouldWriteFiles(c Config) bool {
+	return c.DumpRequest == ""
+}
+
 func main() {
 
 	config := Config{}
@@ -231,9 +238,27 @@ func main() {
 
 	apibFile := getApibFileContent(c)
 
-	writeToFile(fmt.Sprintf("%v/%v.apib", filepath.Clean(config.DestinationPath), apibFileName), apibFile, config.ForceApibCreation)
+	if shouldWriteFiles(config) {
+		writeToFile(
+			fmt.Sprintf("%v/%v.apib", filepath.Clean(config.DestinationPath), apibFileName),
+			apibFile,
+			config.ForceApibCreation,
+		)
 
-	for _, path := range getResponseFiles(c) {
-		writeToFile(fmt.Sprintf("%v/%v", filepath.Clean(config.DestinationPath), path), "{}", config.ForceResponsesCreation)
+		for _, path := range getResponseFiles(c) {
+			writeToFile(
+				fmt.Sprintf("%v/%v", filepath.Clean(config.DestinationPath), path),
+				"{}",
+				config.ForceResponsesCreation,
+			)
+		}
+	}
+
+	if config.DumpRequest != ""{
+		for _, request := range c.Items {
+			if request.Name == config.DumpRequest {
+				fmt.Println(request.Markup())
+			}
+		}
 	}
 }

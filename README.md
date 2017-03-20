@@ -54,6 +54,7 @@ docker run --rm -it -v "$PWD:/opt" phillippohlandt/pmtoapib -collection collecti
 | -apibname | | string | | Set a custom name for the generated .apib file |
 | -force-apib | | boolean | `false` | Override existing .apib files |
 | -force-responses | | boolean | `false` | Override existing response files |
+| -dump-request | | string | | Output the markup for a single request |
 
 
 ## Options
