@@ -35,7 +35,7 @@ func (c *Config) Init() {
 	flag.BoolVar(&c.ForceApibCreation, "force-apib", false, "Override existing .apib files")
 	flag.BoolVar(&c.ForceResponsesCreation, "force-responses", false, "Override existing response files")
 
-	flag.StringVar(&c.DumpRequest, "dump-request", "", "Output the markup for a single request")
+	flag.StringVar(&c.DumpRequest, "dump-request", "", "Output the markup for a single request. (Takes a request name)")
 
 	flag.Parse()
 }
