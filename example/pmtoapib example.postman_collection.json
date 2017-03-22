@@ -10,7 +10,7 @@
 		{
 			"name": "users",
 			"request": {
-				"url": "http://localhost/users?per_page=5&page=2",
+				"url": "http://localhost:8081/users?per_page=5&page=2",
 				"method": "GET",
 				"header": [
 					{
@@ -22,12 +22,57 @@
 				"body": {},
 				"description": "Get a list of all users"
 			},
-			"response": []
+			"response": [
+				{
+					"id": "cd4c5b75-3e0c-4703-b285-ee3428c3fb15",
+					"name": "200",
+					"originalRequest": {
+						"url": "http://localhost:8081/users?per_page=5&page=2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "185",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 22 Mar 2017 11:15:37 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookie": [],
+					"responseTime": 44,
+					"body": "{\"data\":[{\"id\":1,\"name\":\"Phillipp\",\"email\":\"phillipp.ohlandt@googlemail.com\"},{\"id\":2,\"name\":\"Bob\",\"email\":\"bob@googlemail.com\"},{\"id\":3,\"name\":\"Peter\",\"email\":\"peter@googlemail.com\"}]}"
+				}
+			]
 		},
 		{
 			"name": "user",
 			"request": {
-				"url": "http://localhost/users/5",
+				"url": "http://localhost:8081/users/2",
 				"method": "GET",
 				"header": [
 					{
@@ -39,12 +84,101 @@
 				"body": {},
 				"description": "Get a specific user\n\npmtoapib_exclude"
 			},
-			"response": []
+			"response": [
+				{
+					"id": "f6aa36f1-adbb-459f-bb11-16c9800d1b5c",
+					"name": "404 userID 1",
+					"originalRequest": {
+						"url": "http://localhost:8081/users/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"body": {}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "39",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 22 Mar 2017 11:16:02 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookie": [],
+					"responseTime": 21,
+					"body": "{\"error\":{\"message\":\"User Not Found!\"}}"
+				},
+				{
+					"id": "c9da8eec-90a0-4659-b6b5-fc27c049a6b8",
+					"name": "200 userID 2",
+					"originalRequest": {
+						"url": "http://localhost:8081/users/2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "59",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 22 Mar 2017 11:16:25 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookie": [],
+					"responseTime": 37,
+					"body": "{\"data\":{\"id\":2,\"name\":\"Bob\",\"email\":\"bob@googlemail.com\"}}"
+				}
+			]
 		},
 		{
 			"name": "me",
 			"request": {
-				"url": "http://localhost/me",
+				"url": "http://localhost:8081/me",
 				"method": "GET",
 				"header": [
 					{
@@ -56,7 +190,52 @@
 				"body": {},
 				"description": "Get information about the authenticated user"
 			},
-			"response": []
+			"response": [
+				{
+					"id": "b264c1d3-3939-46bb-9c28-85cc92f51f16",
+					"name": "200",
+					"originalRequest": {
+						"url": "http://localhost:8081/me",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"enabled": true,
+								"disabled": false
+							}
+						],
+						"body": {}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "77",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 22 Mar 2017 11:16:58 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						}
+					],
+					"cookie": [],
+					"responseTime": 29,
+					"body": "{\"data\":{\"id\":1,\"name\":\"Phillipp\",\"email\":\"phillipp.ohlandt@googlemail.com\"}}"
+				}
+			]
 		},
 		{
 			"name": "me edit",
