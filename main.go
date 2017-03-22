@@ -50,10 +50,24 @@ type CollectionInfo struct {
 	Description string `json:"description"`
 }
 
+type CollectionItemResponses []CollectionItemResponse
+
+func (r CollectionItemResponses) Len() int {
+	return len(r)
+}
+
+func (r CollectionItemResponses) Less(i, j int) bool {
+	return r[i].Code < r[j].Code
+}
+
+func (r CollectionItemResponses) Swap(i, j int) {
+	r[i], r[j] = r[j], r[i]
+}
+
 type CollectionItem struct {
-	Name      string                   `json:"name"`
-	Request   CollectionItemRequest    `json:"request"`
-	Responses []CollectionItemResponse `json:"response"`
+	Name      string                  `json:"name"`
+	Request   CollectionItemRequest   `json:"request"`
+	Responses CollectionItemResponses `json:"response"`
 }
 
 func (i CollectionItem) Markup() template.HTML {
@@ -78,15 +92,7 @@ func (i CollectionItem) Markup() template.HTML {
 
     	    {{ .Request.Body.RawString }}
     {{ end }}
-+ Response 200 (application/json)
-
-    + Headers
-
-            NAME: VALUE
-
-    + Body
-
-            {{ .Request.ResponseBodyIncludeString }}
+{{ .ResponseSectionMarkup }}
 `
 
 	t := template.New("Item Template")
@@ -97,6 +103,71 @@ func (i CollectionItem) Markup() template.HTML {
 	s := doc.String()
 
 	return template.HTML(s)
+}
+
+func (i CollectionItem) ResponseSectionMarkup() template.HTML {
+	tpl :=
+		`+ Response 200 (application/json)
+
+    + Headers
+
+            NAME: VALUE
+
+    + Body
+
+            {{ .Request.ResponseBodyIncludeString }}`
+
+	t := template.New("Response Section Template")
+	t, _ = t.Parse(tpl)
+
+	var doc bytes.Buffer
+	t.Execute(&doc, i)
+	s := doc.String()
+
+	return template.HTML(s)
+}
+
+func (i CollectionItem) ResponseList() []CollectionItemResponse {
+	responses := CollectionItemResponses{}
+
+	dummyTwoHundredResponse := CollectionItemResponse{
+		Id:     "1",
+		Name:   "200",
+		Status: "OK",
+		Code:   200,
+		Header: []ResponseHeader{
+			{
+				Key:         "NAME",
+				Value:       "VALUE",
+				Name:        "NAME",
+				Description: "Dummy Header",
+			},
+		},
+		Body: "{}",
+	}
+
+	if len(i.Responses) == 0 {
+		responses = append(responses, dummyTwoHundredResponse)
+		return responses
+	}
+
+	responses = i.Responses
+
+	hasTwoHundred := false
+
+	for _, response := range responses {
+		if response.Code == 200 {
+			hasTwoHundred = true
+		}
+	}
+
+	if !hasTwoHundred {
+		responses = append(responses, dummyTwoHundredResponse)
+	}
+
+	sort.Sort(responses)
+
+	return responses
 }
 
 type CollectionItemRequest struct {
@@ -119,7 +190,7 @@ func (r CollectionItemRequest) UrlParameterList() []string {
 
 	m, _ := url.ParseQuery(u.RawQuery)
 
-	for key, _ := range m {
+	for key := range m {
 		parameters = append(parameters, key)
 	}
 
