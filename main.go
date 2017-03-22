@@ -253,8 +253,6 @@ func main() {
 		apibFileName = config.ApibFileName
 	}
 
-	fmt.Printf("%+v\n", c)
-
 	apibFile := getApibFileContent(c)
 
 	if shouldWriteFiles(config) {
