@@ -51,8 +51,9 @@ type CollectionInfo struct {
 }
 
 type CollectionItem struct {
-	Name    string                `json:"name"`
-	Request CollectionItemRequest `json:"request"`
+	Name      string                   `json:"name"`
+	Request   CollectionItemRequest    `json:"request"`
+	Responses []CollectionItemResponse `json:"response"`
 }
 
 func (i CollectionItem) Markup() template.HTML {
@@ -166,6 +167,22 @@ func (b RequestBody) RawString() template.HTML {
 	return template.HTML(out.String())
 }
 
+type CollectionItemResponse struct {
+	Id     string           `json:"id"`
+	Name   string           `json:"name"`
+	Status string           `json:"status"`
+	Code   int              `json:"code"`
+	Header []ResponseHeader `json:"header"`
+	Body   string           `json:"body"`
+}
+
+type ResponseHeader struct {
+	Key         string `json:"key"`
+	Value       string `json:"value"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
 func getApibFileContent(c Collection) string {
 	tpl :=
 		`# Group {{ .Info.Name }}
@@ -235,6 +252,8 @@ func main() {
 	if config.ApibFileName != "" {
 		apibFileName = config.ApibFileName
 	}
+
+	fmt.Printf("%+v\n", c)
 
 	apibFile := getApibFileContent(c)
 
