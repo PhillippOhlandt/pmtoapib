@@ -79,6 +79,12 @@ func (i CollectionItem) ResponseList() []CollectionItemResponse {
 		Code:   200,
 		Header: []ResponseHeader{
 			{
+				Key:         "Content-Type",
+				Value:       "application/json",
+				Name:        "Content-Typ",
+				Description: "The mime type of this content",
+			},
+			{
 				Key:         "NAME",
 				Value:       "VALUE",
 				Name:        "NAME",
