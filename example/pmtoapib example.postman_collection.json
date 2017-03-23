@@ -24,7 +24,7 @@
 			},
 			"response": [
 				{
-					"id": "cd4c5b75-3e0c-4703-b285-ee3428c3fb15",
+					"id": "641dfd14-8c08-411e-89f3-545f5a485a2c",
 					"name": "200",
 					"originalRequest": {
 						"url": "http://localhost:8081/users?per_page=5&page=2",
@@ -82,11 +82,11 @@
 					}
 				],
 				"body": {},
-				"description": "Get a specific user\n\npmtoapib_exclude"
+				"description": "Get a specific user"
 			},
 			"response": [
 				{
-					"id": "f6aa36f1-adbb-459f-bb11-16c9800d1b5c",
+					"id": "04c11468-ce31-4444-8d94-4faa5d04aee3",
 					"name": "404 userID 1",
 					"originalRequest": {
 						"url": "http://localhost:8081/users/1",
@@ -130,7 +130,7 @@
 					"body": "{\"error\":{\"message\":\"User Not Found!\"}}"
 				},
 				{
-					"id": "c9da8eec-90a0-4659-b6b5-fc27c049a6b8",
+					"id": "28ce2101-6c36-40d8-8dda-d69e181d0d27",
 					"name": "200 userID 2",
 					"originalRequest": {
 						"url": "http://localhost:8081/users/2",
@@ -192,7 +192,7 @@
 			},
 			"response": [
 				{
-					"id": "b264c1d3-3939-46bb-9c28-85cc92f51f16",
+					"id": "0dce1e6a-6040-4222-81d2-caa4511c8830",
 					"name": "200",
 					"originalRequest": {
 						"url": "http://localhost:8081/me",
@@ -259,6 +259,31 @@
 					"raw": "{\n\t\"name\": \"Phillipp\",\n\t\"twitter_profile\": \"PhillippOh\"\n}"
 				},
 				"description": "Edit information about the authenticated user"
+			},
+			"response": []
+		},
+		{
+			"name": "WiP Request",
+			"request": {
+				"url": "http://localhost/foo",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Phillipp\",\n\t\"twitter_profile\": \"PhillippOh\"\n}"
+				},
+				"description": "Request that does something but isn't finished yet\n\npmtoapib_exclude"
 			},
 			"response": []
 		}
