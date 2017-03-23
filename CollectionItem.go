@@ -49,15 +49,17 @@ func (i CollectionItem) Markup() template.HTML {
 
 func (i CollectionItem) ResponseSectionMarkup() template.HTML {
 	tpl :=
-		`+ Response 200 (application/json)
+		`{{ range .ResponseList }}
++ Response {{ .Code }}{{ if .ContentType }} ({{ .ContentType }}){{ end }}
 
     + Headers
-
-            NAME: VALUE
+            {{ range .Header }}{{ if not .Hidden }}
+            {{ .Key }}: {{ .Value }}{{ end }}{{ end }}
 
     + Body
 
-            {{ .Request.ResponseBodyIncludeString }}`
+            {{ .BodyIncludeString $.Request }}
+{{ end }}`
 
 	t := template.New("Response Section Template")
 	t, _ = t.Parse(tpl)
@@ -69,7 +71,7 @@ func (i CollectionItem) ResponseSectionMarkup() template.HTML {
 	return template.HTML(s)
 }
 
-func (i CollectionItem) ResponseList() []CollectionItemResponse {
+func (i CollectionItem) ResponseList() CollectionItemResponses {
 	responses := CollectionItemResponses{}
 
 	dummyTwoHundredResponse := CollectionItemResponse{

@@ -1,10 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"html/template"
 	"net/url"
-	"path/filepath"
 	"sort"
 	"strings"
 )
@@ -40,16 +37,6 @@ func (r CollectionItemRequest) UrlParameterList() []string {
 
 func (r CollectionItemRequest) UrlParameterListString() string {
 	return strings.Join(r.UrlParameterList(), ",")
-}
-
-func (r CollectionItemRequest) ResponseBodyIncludePath() string {
-	dir, file := filepath.Split(r.ShortUrl())
-	file = fmt.Sprintf("%v-%v", strings.ToLower(r.Method), file)
-	return fmt.Sprintf("responses%v%v.json", dir, file)
-}
-
-func (r CollectionItemRequest) ResponseBodyIncludeString() template.HTML {
-	return template.HTML(fmt.Sprintf("<!-- include(%v) -->", r.ResponseBodyIncludePath()))
 }
 
 func (r CollectionItemRequest) IsExcluded() bool {

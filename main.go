@@ -21,7 +21,6 @@ func getApibFileContent(c Collection) string {
 {{ .Markup }}
 
 
-
 {{ end }}{{ end }}
 `
 
@@ -35,12 +34,17 @@ func getApibFileContent(c Collection) string {
 	return s
 }
 
-func getResponseFiles(c Collection) []string {
-	var files []string
+func getResponseFiles(c Collection) []map[string]string {
+	var files []map[string]string
 
 	for _, item := range c.Items {
 		if !item.Request.IsExcluded() {
-			files = append(files, item.Request.ResponseBodyIncludePath())
+			for _, response := range item.ResponseList() {
+				m := map[string]string{}
+				m["path"] = response.BodyIncludePath(item.Request)
+				m["body"] = response.FormattedBody()
+				files = append(files, m)
+			}
 		}
 	}
 
@@ -90,10 +94,10 @@ func main() {
 			config.ForceApibCreation,
 		)
 
-		for _, path := range getResponseFiles(c) {
+		for _, file := range getResponseFiles(c) {
 			writeToFile(
-				fmt.Sprintf("%v/%v", filepath.Clean(config.DestinationPath), path),
-				"{}",
+				fmt.Sprintf("%v/%v", filepath.Clean(config.DestinationPath), file["path"]),
+				file["body"],
 				config.ForceResponsesCreation,
 			)
 		}
