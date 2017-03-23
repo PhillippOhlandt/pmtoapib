@@ -20,15 +20,56 @@ Get a list of all users
             
             Authorization: Bearer {{access_token}}
     
+
 + Response 200 (application/json)
 
     + Headers
-
-            NAME: VALUE
+            
+            Content-Length: 185
+            Date: Wed, 22 Mar 2017 11:15:37 GMT
 
     + Body
 
-            <!-- include(responses/get-users.json) -->
+            <!-- include(responses/get-200-users.json) -->
+
+
+
+
+
+## user [/users/2]
+
+### user [GET]
+
+Get a specific user
+
++ Request
+
+    + Headers
+            
+            Authorization: Bearer {{access_token}}
+    
+
++ Response 200 (application/json)
+
+    + Headers
+            
+            Content-Length: 59
+            Date: Wed, 22 Mar 2017 11:16:25 GMT
+
+    + Body
+
+            <!-- include(responses/users/get-200_userID_2-2.json) -->
+
++ Response 404 (application/json)
+
+    + Headers
+            
+            Content-Length: 39
+            Date: Wed, 22 Mar 2017 11:16:02 GMT
+
+    + Body
+
+            <!-- include(responses/users/get-404_userID_1-2.json) -->
 
 
 
@@ -46,15 +87,17 @@ Get information about the authenticated user
             
             Authorization: Bearer {{access_token}}
     
+
 + Response 200 (application/json)
 
     + Headers
-
-            NAME: VALUE
+            
+            Content-Length: 77
+            Date: Wed, 22 Mar 2017 11:16:58 GMT
 
     + Body
 
-            <!-- include(responses/get-me.json) -->
+            <!-- include(responses/get-200-me.json) -->
 
 
 
@@ -80,15 +123,16 @@ Edit information about the authenticated user
 				"twitter_profile": "PhillippOh"
 			}
     
+
 + Response 200 (application/json)
 
     + Headers
-
+            
             NAME: VALUE
 
     + Body
 
-            <!-- include(responses/post-me.json) -->
+            <!-- include(responses/post-200-me.json) -->
 
 
 
