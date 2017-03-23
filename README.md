@@ -17,16 +17,20 @@ The `docs` folder will be created with the following content
 ```
 ├── collection-name.apib
 └── responses
-    └── user
-        ├── post-login.json
-        ├── get-info.json
-        └── get-posts.json
+    ├── get-200-me.json
+    ├── get-200-users.json
+    ├── post-200-me.json
+    └── users
+        ├── get-200_userID_2-2.json
+        └── get-404_userID_1-2.json
 ```
 
-The `responses` folder contains JSON files with an empty JSON object, 
-because those information are not available in the Postman export.
+The `responses` folder contains JSON files with the (pretty printed) response bodies.
+If a request has no exported responses (e.g. you didn't save any in Postman), 
+the response file will contain an empty JSON object.
 
-The folders inside the `responses` folder line up with the request paths.
+The folders inside the `responses` folder line up with the request paths and
+the files are named with the following pattern: `{method}-{response name}-{last element in url}.json`.
 
 By default, the collection name will be used as the `.apib` filename.
 It can be overridden with the `-apibname` parameter.
