@@ -1,19 +1,19 @@
 {
-	"data": [
-		{
-			"id": 1,
-			"name": "Phillipp",
-			"email": "phillipp.ohlandt@googlemail.com"
-		},
-		{
-			"id": 2,
-			"name": "Bob",
-			"email": "bob@googlemail.com"
-		},
-		{
-			"id": 3,
-			"name": "Peter",
-			"email": "peter@googlemail.com"
-		}
-	]
+    "data": [
+        {
+            "id": 1,
+            "name": "Phillipp",
+            "email": "phillipp.ohlandt@googlemail.com"
+        },
+        {
+            "id": 2,
+            "name": "Bob",
+            "email": "bob@googlemail.com"
+        },
+        {
+            "id": 3,
+            "name": "Peter",
+            "email": "peter@googlemail.com"
+        }
+    ]
 }

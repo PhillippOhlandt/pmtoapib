@@ -43,7 +43,7 @@ func (r CollectionItemResponse) ContentType() string {
 
 func (r CollectionItemResponse) FormattedBody() string {
 	var out bytes.Buffer
-	err := json.Indent(&out, []byte(r.Body), "", "\t")
+	err := json.Indent(&out, []byte(r.Body), "", "    ")
 	if err != nil {
 		return r.Body
 	}

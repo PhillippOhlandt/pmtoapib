@@ -13,7 +13,7 @@ type RequestBody struct {
 
 func (b RequestBody) RawString() template.HTML {
 	var out bytes.Buffer
-	err := json.Indent(&out, []byte(b.Raw), "\t\t\t", "\t")
+	err := json.Indent(&out, []byte(b.Raw), "            ", "    ")
 	if err != nil {
 		return template.HTML(b.Raw)
 	}
