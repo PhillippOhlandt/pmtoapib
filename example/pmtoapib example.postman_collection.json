@@ -10,7 +10,32 @@
 		{
 			"name": "users",
 			"request": {
-				"url": "http://localhost:8081/users?per_page=5&page=2",
+				"url": {
+					"raw": "http://localhost:8081/users?per_page=5&page=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "per_page",
+							"value": "5",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "page",
+							"value": "2",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -24,7 +49,7 @@
 			},
 			"response": [
 				{
-					"id": "641dfd14-8c08-411e-89f3-545f5a485a2c",
+					"id": "41cb75b7-0132-4f0e-af94-97bed53265ff",
 					"name": "200",
 					"originalRequest": {
 						"url": "http://localhost:8081/users?per_page=5&page=2",
@@ -86,7 +111,7 @@
 			},
 			"response": [
 				{
-					"id": "04c11468-ce31-4444-8d94-4faa5d04aee3",
+					"id": "fc1150ad-7173-451d-aa30-9a713c2cfd51",
 					"name": "404 userID 1",
 					"originalRequest": {
 						"url": "http://localhost:8081/users/1",
@@ -130,7 +155,7 @@
 					"body": "{\"error\":{\"message\":\"User Not Found!\"}}"
 				},
 				{
-					"id": "28ce2101-6c36-40d8-8dda-d69e181d0d27",
+					"id": "cfa7ff8a-a81d-45de-9324-0f45a6a158e0",
 					"name": "200 userID 2",
 					"originalRequest": {
 						"url": "http://localhost:8081/users/2",
@@ -192,7 +217,7 @@
 			},
 			"response": [
 				{
-					"id": "0dce1e6a-6040-4222-81d2-caa4511c8830",
+					"id": "fb8968db-f3da-450a-9377-e309ce707d0e",
 					"name": "200",
 					"originalRequest": {
 						"url": "http://localhost:8081/me",

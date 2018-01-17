@@ -7,20 +7,20 @@ import (
 )
 
 type CollectionItemRequest struct {
-	Url         string          `json:"url"`
-	Method      string          `json:"method"`
-	Header      []RequestHeader `json:"header"`
-	Body        RequestBody     `json:"body"`
-	Description string          `json:"description"`
+	Url         CollectionItemRequestUrl `json:"url"`
+	Method      string                   `json:"method"`
+	Header      []RequestHeader          `json:"header"`
+	Body        RequestBody              `json:"body"`
+	Description string                   `json:"description"`
 }
 
 func (r CollectionItemRequest) ShortUrl() string {
-	u, _ := url.Parse(r.Url)
+	u, _ := url.Parse(r.Url.Raw)
 	return u.Path
 }
 
 func (r CollectionItemRequest) UrlParameterList() []string {
-	u, _ := url.Parse(r.Url)
+	u, _ := url.Parse(r.Url.Raw)
 
 	parameters := []string{}
 
